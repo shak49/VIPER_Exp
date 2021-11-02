@@ -13,17 +13,26 @@ import UIKit
 protocol AnyPresenter {
     var router: AnyRouter? { get set }
     var intractor: AnyInteractor? { get set }
-    var viwe: AnyView? { get set }
+    var view: AnyView? { get set }
     
-    func interactorDidFetchUsers(result: Result<[User], Error>)
+    func interactorDidFetchUsers(with: Result<[User], NetworkError>)
 }
 
 class UserPresenter: AnyPresenter {
     var router: AnyRouter?
     var intractor: AnyInteractor?
-    var viwe: AnyView?
+    var view: AnyView?
     
-    func interactorDidFetchUsers(result: Result<[User], Error>) {
-        
+    init() {
+        intractor?.getUsers()
+    }
+    
+    func interactorDidFetchUsers(with result: Result<[User], NetworkError>) {
+        switch result {
+        case .success(let users):
+            view?.update(with: users)
+        case .failure:
+            view?.update(with: "Something went wrong!")
+        }
     }
 }

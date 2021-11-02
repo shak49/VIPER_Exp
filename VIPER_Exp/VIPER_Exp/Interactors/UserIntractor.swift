@@ -20,6 +20,19 @@ class UserInteractor: AnyInteractor {
     var presenter: AnyPresenter?
     
     func getUsers() {
-        
+        guard let url = URL(string: "https://www.jsonplaceholder.typicode.com/users") else { return }
+        URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
+            guard let data = data, error == nil else {
+                self?.presenter?.interactorDidFetchUsers(with: .failure(.noData))
+                return
+            }
+            do {
+                let users = try JSONDecoder().decode([User].self, from: data)
+                self?.presenter?.interactorDidFetchUsers(with: .success(users))
+            } catch {
+                self?.presenter?.interactorDidFetchUsers(with: .failure(.unableToDecode))
+            }
+        }
+        .resume()
     }
 }
