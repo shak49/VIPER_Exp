@@ -6,8 +6,8 @@
 //
 
 import UIKit
-// protocol
-// ref to presenter
+
+
 protocol AnyView {
     var presenter: AnyPresenter? { get set }
     

@@ -7,9 +7,8 @@
 
 import Foundation
 import UIKit
-// object
-// protocol
-// ref to view / interacter / router
+
+
 protocol AnyPresenter {
     var router: AnyRouter? { get set }
     var intractor: AnyInteractor? { get set }

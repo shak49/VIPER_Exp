@@ -6,10 +6,8 @@
 //
 
 import Foundation
-// object
-// protocol
-// ref to presenter
-// https://www.jsonplaceholder.typicode.com/users
+
+
 protocol AnyInteractor {
     var presenter: AnyPresenter? { get set }
     
@@ -20,7 +18,6 @@ class UserInteractor: AnyInteractor {
     var presenter: AnyPresenter?
     
     func getUsers() {
-        print("Start Fetching!")
         guard let url = URL(string: "https://jsonplaceholder.typicode.com/users") else { return }
         URLSession.shared.dataTask(with: url) { [weak self] data, _, error in
             guard let data = data, error == nil else {

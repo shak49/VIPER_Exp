@@ -6,10 +6,8 @@
 //
 
 import UIKit
-// object
-// protocol
-// entry point of module
-// ref to presenter
+
+
 typealias EntryPoint = AnyView & UIViewController
 
 protocol AnyRouter {
