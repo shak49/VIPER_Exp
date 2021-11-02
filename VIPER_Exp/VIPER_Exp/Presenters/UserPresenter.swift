@@ -14,10 +14,16 @@ protocol AnyPresenter {
     var router: AnyRouter? { get set }
     var intractor: AnyInteractor? { get set }
     var viwe: AnyView? { get set }
+    
+    func interactorDidFetchUsers(result: Result<[User], Error>)
 }
 
 class UserPresenter: AnyPresenter {
     var router: AnyRouter?
     var intractor: AnyInteractor?
     var viwe: AnyView?
+    
+    func interactorDidFetchUsers(result: Result<[User], Error>) {
+        
+    }
 }
