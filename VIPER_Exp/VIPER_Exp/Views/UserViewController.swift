@@ -19,19 +19,26 @@ protocol AnyView {
 class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITableViewDataSource {
     // SHAK: Properties
     var presenter: AnyPresenter?
+    var users = [User]()
     let tableView: UITableView = {
         let table = UITableView()
         table.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
         table.isHidden = true
         return table
     }()
-    var users = [User]()
+    private let label: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.isHidden = true
+        return label
+    }()
     
     // SHAK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .systemBlue
         view.addSubview(tableView)
+        view.addSubview(label)
         tableView.delegate = self
         tableView.dataSource = self
     }
@@ -39,6 +46,8 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         tableView.frame = view.bounds
+        label.frame = CGRect(x: 0, y: 0, width: 200, height: 50)
+        label.center = view.center
     }
     
     // SHAK: Functions
@@ -52,7 +61,12 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
     }
     
     func update(with error: String) {
-        print(error)
+        DispatchQueue.main.async {
+            self.users = []
+            self.tableView.isHidden = true
+            self.label.text = error
+            self.label.isHidden = false
+        }
     }
 
     // SHAK: Data Source
