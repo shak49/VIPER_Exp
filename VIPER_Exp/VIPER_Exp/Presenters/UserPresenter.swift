@@ -20,12 +20,12 @@ protocol AnyPresenter {
 
 class UserPresenter: AnyPresenter {
     var router: AnyRouter?
-    var intractor: AnyInteractor?
-    var view: AnyView?
-    
-    init() {
-        intractor?.getUsers()
+    var intractor: AnyInteractor? {
+        didSet {
+            intractor?.getUsers()
+        }
     }
+    var view: AnyView?
     
     func interactorDidFetchUsers(with result: Result<[User], NetworkError>) {
         switch result {

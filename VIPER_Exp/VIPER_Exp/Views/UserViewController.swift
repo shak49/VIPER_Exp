@@ -25,6 +25,7 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
         table.isHidden = true
         return table
     }()
+    var users = [User]()
     
     // SHAK: Lifecycle
     override func viewDidLoad() {
@@ -41,23 +42,30 @@ class UserViewController: UIViewController, AnyView, UITableViewDelegate, UITabl
     }
     
     // SHAK: Functions
-    func update(with user: [User]) {
-        
+    func update(with users: [User]) {
+        print(users)
+        DispatchQueue.main.async {
+            self.users = users
+            self.tableView.reloadData()
+            self.tableView.isHidden = false
+        }
     }
     
     func update(with error: String) {
-        
+        print(error)
     }
 
     // SHAK: Data Source
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return 0
+        return users.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath)
+        let indexPath = users[indexPath.row]
+        cell.textLabel?.text = indexPath.name
+        return cell
     }
-    
 
 }
 

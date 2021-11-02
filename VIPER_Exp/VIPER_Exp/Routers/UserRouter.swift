@@ -29,7 +29,7 @@ class UserRouter: AnyRouter {
         view.presenter = presenter
         intractor.presenter = presenter
         presenter.router = router
-        presenter.viwe = view
+        presenter.view = view
         presenter.intractor = intractor
         return router
     }
