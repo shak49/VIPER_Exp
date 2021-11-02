@@ -6,9 +6,17 @@
 //
 
 import UIKit
+// protocol
+// ref to presenter
+protocol AnyView {
+    
+}
 
-class ViewController: UIViewController {
 
+class UserViewController: UIViewController, AnyView {
+    // SHAK: Properties
+    
+    // SHAK: Lifecycle
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
